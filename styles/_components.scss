@@ -1,0 +1,32 @@
+@mixin text($font-size, $color, $text-align, $line-height) {
+  letter-spacing: 0;
+  font-size: $font-size;
+  color: $color;
+  text-align: $text-align;
+  line-height: $line-height;
+}
+
+@mixin dotted-buttoms($width, $height, $left) {
+  content: "";
+  width: $width;
+  height: $height;
+  position: absolute;
+  border: 1px dotted #110038;
+  margin: 2px;
+  left: $left;
+}
+
+@mixin dotted-hover($position, $background, $box-shadow) {
+  position: $position;
+  background: $background;
+  box-shadow: $box-shadow;
+}
+
+@mixin capture-buttom($width, $height, $padding, $bg, $border) {
+  width: $width;
+  height: $height;
+  padding: $padding;
+  text-decoration: none;
+  background: $bg;
+  border: $border;
+}

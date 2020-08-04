@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create my Gif</title>
+    <link rel="stylesheet" href="../styles/main.css" />
+  </head>
+  <body class="body">
+    <header class="header">
+      <div class="preheader">
+        <p>
+          ¡Bienvenidos/as a Guifos.com! ------Donde los gifs están.////// Número de visitas: 12.765.803
+        </p>
+      </div>
+      <div class="header_content">
+        <a href="/GIFOS/index.html" class="arrow-back"><img src="../assets/arrow.svg" alt="Ir al home" /></a>
+        <img src="../assets/gifOF_logo.png" alt="Guifos" class="logo" />
+      </div>
+    </header>
+
+    <!--Pasos para crear Gif-->
+    <section class="pre_capture">
+      <h1 class="pre_capture_title">Crear Guifos</h1>
+      <div class="pre_capture_text">
+        <img src="../assets/window_img.png" alt="Crear tus propios gifos" />
+        <h2 class="pre_capture_subtitle">Aquí podrás crear tus propios guifos</h2>
+        <p>
+          Crear tu <strong>guifo</strong> es muy fácil, graba cualquier imagen con tu cámara y obtén guifos personalizados. Los pasos para crear tu
+          guifo son: 
+          <ul>
+            <li><span>1)</span> Dar permisos de acceso a la cámara (sólo por el tiempo de uso).</li>
+            <li><span>2)</span> Capturar tu momento guifo.</li>
+            <li><span>3)</span> Revisar el momento.</li>
+            <li><span>4)</span> ¡Listo para subir y compartir!</li>
+            <li>¿Quieres comenzar a crear tu <strong>guifo</strong> ahora?</li>
+          </ul>              
+       </p>
+      </div>
+      <div class="pre_capture_buttoms">
+        <a href="/GIFOS/index.html" class="cancel">Cancelar</a>
+        <a href="#" class="start" id="start">Comenzar</a>
+      </div>
+    </section>
+   
+    <!--Cámara prendida-->
+    <!-- <section class="container capture hidden">
+      <div class="pre_capture_title"><h1>Un chequeo antes de comenzar</h1>           
+        <img src="../assets/close.svg" id="close"/>
+      </div>
+      <video autoplay playsinline id="video"></video>  
+      <div class="button" id="btn-start-recording">
+        <div class="button_img">
+          <img src="../assets/camera.svg" alt="Elegir tema" />
+        </div>
+        <div class="button_text">Capturar</div>
+      </div>
+    </section> -->
+
+    <!--Grabando gif-->
+    <section class="container recording hidden">
+      <div class="pre_capture_title"><h1>Un chequeo antes de comenzar</h1>           
+        <img src="../assets/close.svg" id="close"/>
+      </div>
+      <video autoplay playsinline id="video"></video>  
+      <div id="container-gif"></div>
+      <div class="button" id="btn-start-recording">
+        <div class="button_img">
+          <img src="../assets/camera.svg" alt="Elegir tema" />
+        </div>
+        <div class="button_text">Capturar</div>
+      </div>
+      <div class="container_btn">
+        <p class="time">00:00:03:06</p>      
+        <div class="button stop_btn" id="btn-stop-recording">
+          <div class="button_img">
+            <img src="../assets/recording.svg" alt="Elegir tema" />
+          </div>
+          <div class="button_text">Listo</div>
+        </div>
+        <div class="load">
+          <img src="../assets/forward.svg">
+          <div class="loader">
+            <div class="load_item"></div>
+            <div class="load_item loaded"></div>
+          </div>
+        </div>
+        <div class="preview_buttoms hidden">
+          <a href="#" class="preview_cancel">Repetir captura</a>
+          <a href="#" class="preview_start" id="preview_start">Subir Guifo</a>
+        </div>
+      </div>
+    </section>
+
+    <!--Subiendo gif-->
+    <section class="container upload hidden">
+      <div class="pre_capture_title"><h1>Subiendo Guifo</h1>           
+        <img src="../assets/close.svg" id="close"/>
+      </div>
+      <div class="loading-gif">
+        <img src="../assets/globe_img.png">
+        <h3>Estamos subiendo tu guifo…</h3>
+        <div class="loading_bar">
+          <div class="loading_item"></div>
+          <div class="loading_item loaded"></div>
+        </div>
+        <p>Tiempo restante: <span>38 años</span> algunos minutos</p>
+      </div> 
+      <div class="pre_capture_buttoms">
+        <a href="/GIFOS/index.html" class="cancel">Cancelar</a>
+      </div>
+    </section>
+
+    <!--Guifo subido-->
+    <section class="uploaded hidden">
+      <div class="pre_capture_title"><h1>Guifo Subido Con Éxito</h1>           
+        <img src="../assets/close.svg" id="close"/>
+      </div>
+      <div class="uploaded_container">
+        <img src="../assets/globe_img.png" class="uploaded_gif">
+        <div class="uploaded_buttoms">
+          <p>Guifo creado con éxito</p>
+          <a href="#" class="uploaded_btn" id="copy">Copiar Enlace Guifo</a>
+          <a href="#" class="uploaded_btn" id="download">Descargar Guifo</a>
+        </div>
+      </div>
+      <a href="#" class="uploaded_ready">Listo</a>
+    </section>
+
+    <section class="mygifs">
+      <h2 class="subtitle">Mis Gifos</h2>
+      <div class="my-new-gif"></div>
+      <div class="my-new-gif"></div>
+      <div class="my-new-gif"></div>
+      <div class="my-new-gif"></div>
+    </section>
+
+    <!-- <script src="../js/main.js"></script>
+    <script src="../js/theme.js"></script> -->
+    <script src="../js/capture.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+  </body>
+</html>

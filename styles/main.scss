@@ -1,0 +1,26 @@
+@import "_reset.scss";
+@import "_fonts.scss";
+@import "_variables.scss";
+@import "_components.scss";
+@import "_header.scss";
+@import "_sections.scss";
+@import "_capture.scss";
+
+.body {
+  background-color: var(--bg-color);
+}
+
+input::placeholder {
+  font-size: 1.6rem;
+  color: var(--gray-search-shadow);
+  letter-spacing: 0;
+  line-height: 22px;
+}
+
+h3 {
+  font-family: ChakraPetch-Bold;
+  font-size: 1.4rem;
+  color: #fff;
+  letter-spacing: 0;
+  line-height: 19px;
+}

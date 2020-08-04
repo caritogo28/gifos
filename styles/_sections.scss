@@ -1,0 +1,99 @@
+.suggestions,
+.trends {
+  margin: 64px 140px 0 100px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.suggestions {
+  display: grid;
+  grid-template: 32px 1fr / repeat(4, 1fr);
+  grid-gap: 16px;
+  .gif {
+    width: 288px;
+    height: 313px;
+  }
+}
+
+.trends {
+  display: grid;
+  grid-template: 32px repeat(3, 1fr) / repeat(4, 1fr);
+  grid-gap: 16px;
+  .gif {
+    width: 288px;
+    height: 298px;
+    position: relative;
+    .trends_gif_title {
+      display: none;
+    }
+    &:hover {
+      .trends_gif_title {
+        width: 99%;
+        position: absolute;
+        bottom: 0;
+        height: 24px;
+        padding: 3px;
+        margin-bottom: 2px;
+        display: flex;
+        justify-content: space-between;
+        background-image: var(--gradient);
+      }
+    }
+  }
+  .double_izq {
+    grid-column: 1 / 3;
+    width: 592px;
+  }
+  .double_der {
+    grid-column: 3 / 5;
+    width: 592px;
+  }
+}
+
+.subtitle {
+  font-size: 1.4rem;
+  grid-area: 1 / 5 / 1 / 1;
+  padding: 7px 0 7px 7px;
+  background: var(--pink-titles-bg);
+  border: 1px solid var(--pink-hover-btn-menu);
+  box-shadow: inset -2px -2px 0 0 var(--pink-titles-shadow), inset 2px 2px 0 0 var(--dark-titles-shadow);
+}
+
+.gif {
+  background: var(--gray-search);
+  box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
+  padding: 2px;
+  position: relative;
+  overflow: hidden;
+  &_title {
+    background-image: var(--gradient);
+    height: 24px;
+    padding: 3px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    img {
+      width: auto;
+      height: auto;
+    }
+  }
+  a {
+    background: var(--blue-button-gif);
+    border: 1px solid var(--purple-btn-gif-border);
+    box-shadow: inset -2px -2px 0 0 var(--blue-btn-gif-shadow), inset 2px 2px 0 0 #fff;
+    font-family: ChakraPetch-Regular;
+    font-size: 1.4rem;
+    color: #fff;
+    letter-spacing: 0;
+    text-align: center;
+    line-height: 18px;
+    padding: 8px 10px;
+    text-decoration: none;
+    position: absolute;
+    bottom: 19px;
+    left: 11px;
+  }
+}

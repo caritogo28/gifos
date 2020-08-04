@@ -1,0 +1,63 @@
+//Variables
+//Colors Sailor day
+html {
+  --bg-color: #fff4fd;
+  --gradient: linear-gradient(270deg, #f7c9f3 0%, #4180f6 100%);
+  --dark-blue: #110038;
+  --dark-blue-strong: #00001a;
+  --button-menu: #f7c9f3;
+  --button-shadow: #997d97;
+  --gray-search: #e6e6e6;
+  --gray-search-shadow: #b4b4b4;
+  --gray-search-options: #f0f0f0;
+  --gray-border-shadow: #808080;
+  --gray-search-border: #979797;
+  --gray-active: #88799b;
+  --gray-shadow-loader: #fffcfc;
+  --pink-titles-bg: #fffafe;
+  --pink-hover-btn-menu: #e6bbe2;
+  --pink-titles-shadow: #e6dce4;
+  --dark-titles-shadow: #80687d;
+  --blue-button-gif: #4180f6;
+  --blue-btn-gif-shadow: #284f99;
+  --purple-btn-gif-border: #4c2f99;
+  --pink-button-active: #fff4fd;
+  --pink-button-act-border: #cca6c9;
+  --border-buttoms: inset -1px -1px 0 0 var(--button-shadow), inset 1px 1px 0 0 #fff;
+  --stop-buttoms: #ff6161;
+  --stop-shadow-buttoms: #993a3a;
+  //Font size
+  --font-size-buttom: 1.6rem;
+}
+
+html[data-theme="dark"] {
+  --bg-color: #110038;
+  --gradient: linear-gradient(270deg, #ee3efe 0%, #2e32fb 100%);
+  --button-menu: #ee3efe;
+  --button-shadow: #a72cb3;
+  --gray-search: #b4b4b4;
+  --gray-search-shadow: #8f8f8f;
+  --gray-search-options: #ccc;
+  --pink-hover-btn-menu: #ce36db;
+  --dark-titles-shadow: #110038;
+  --blue-button-gif: #2e32fb;
+  --blue-btn-gif-shadow: #2124b3;
+
+  .button_2 {
+    color: #fff;
+  }
+
+  h2 {
+    border: 1px solid var(--blue-button-gif);
+  }
+
+  .dropdown-content {
+    a {
+      &:active {
+        background-color: var(--blue-button-gif);
+        border: 1px solid rgba(51, 53, 143, 0.2);
+        color: #fff;
+      }
+    }
+  }
+}

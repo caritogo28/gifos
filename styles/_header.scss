@@ -1,0 +1,179 @@
+.header {
+  .preheader {
+    background-image: var(--gradient);
+    box-shadow: 0 1px 0 0 var(--dark-blue);
+    p {
+      @include text(1.2rem, #fff, null, null);
+      padding: 3px 0px 4px 7px;
+    }
+  }
+  &_content {
+    display: flex;
+    align-items: center;
+    margin: 35px 140.5px 19px 100px;
+    .logo {
+      width: 91px;
+    }
+    .nav {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-sizing: border-box;
+    }
+  }
+}
+.button_2 {
+  font-size: var(--font-size-buttom);
+  color: var(--dark-blue);
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 3.5rem;
+  text-decoration: none;
+  span {
+    border-bottom: 1px solid var(--dark-blue);
+  }
+}
+.button {
+  @extend .button_2;
+  width: 170px;
+  height: 36px;
+  background: var(--button-menu);
+  border: 1px solid var(--dark-blue);
+  box-shadow: inset -1px -1px 0 0 var(--button-shadow), inset 1px 1px 0 0 #fff;
+  margin-right: 16px;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+  &_theme {
+    width: 131px;
+  }
+  &_drop {
+    width: 36px;
+    border-left: 1px solid var(--dark-blue);
+  }
+}
+.dotted {
+  &:hover {
+    .dotted_theme {
+      @include dotted-hover(null, var(--pink-hover-btn-menu), var(--border-buttoms));
+      &::after {
+        @include dotted-buttoms(76%, 89%, 0);
+      }
+    }
+    .dotted_down {
+      @include dotted-hover(relative, var(--pink-hover-btn-menu), var(--border-buttoms));
+      &::after {
+        @include dotted-buttoms(90%, 89%, 0);
+      }
+    }
+  }
+}
+.dotted_btn_create {
+  &:hover {
+    @include dotted-hover(null, var(--pink-hover-btn-menu), var(--border-buttoms));
+    &::after {
+      @include dotted-buttoms(97%, 89%, 0);
+    }
+  }
+}
+
+.dotted_btn_my-gif {
+  &:hover {
+    @include dotted-hover(relative, null, null);
+    &::after {
+      @include dotted-buttoms(122%, 89%, null);
+      right: -16px;
+      &::after:hover {
+        display: none;
+      }
+    }
+  }
+  &:active {
+    color: var(--gray-active);
+  }
+  &:active span {
+    color: var(--gray-active);
+    border-bottom: 1px solid var(--gray-active);
+  }
+}
+.dropbtn {
+  width: 36px;
+}
+
+.dropdown-content {
+  background-color: var(--gray-search);
+  box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
+  display: none;
+  position: absolute;
+  width: 170px;
+  height: 106px;
+  z-index: 1;
+  a {
+    background-color: var(--gray-search-options);
+    border: 1px solid var(--gray-border-shadow);
+    box-shadow: inset -1px -1px 0 0 var(--gray-search-shadow), inset 1px 1px 0 0 #fff;
+    color: var(--dark-blue);
+    padding: 7px 0 7px 16px;
+    margin: 10px 10px 0 10px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: var(--font-size-buttom);
+    letter-spacing: 0;
+    line-height: 22px;
+    &:active {
+      background-color: var(--pink-button-active);
+      border: 1px solid var(--pink-button-act-border);
+      box-shadow: inset -1px -1px 0 0 var(--pink-titles-shadow), inset 1px 1px 0 0 #fff;
+    }
+  }
+}
+.dropdown-show {
+  display: block;
+}
+.search {
+  height: 99px;
+  background-color: var(--gray-search);
+  box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
+  margin: 0 140px 64px 100px;
+  padding: 2px;
+  &_title {
+    background-image: var(--gradient);
+    height: 24px;
+    font-family: ChakraPetch-Bold;
+    font-size: 14px;
+    color: #ffffff;
+    letter-spacing: 0;
+    padding: 4px;
+  }
+  &_input {
+    width: 88%;
+    height: 48px;
+    margin: 12px 8px 12px 15px;
+    padding: 13px 0 13px 16px;
+    background-color: #fff;
+    border: 1px solid var(--gray-search-border);
+    box-shadow: inset -2px -2px 0 0 var(--gray-search), inset 2px 2px 0 0 #000;
+  }
+  &_button {
+    width: 102px;
+    height: 36px;
+    background-color: var(--gray-search);
+    border: 1px solid var(--gray-border-shadow);
+    box-shadow: inset -1px -1px 0 0 var(--gray-search-shadow), inset 1px 1px 0 0 #fff;
+    font-size: var(--font-size-buttom);
+    color: var(--gray-search-shadow);
+    letter-spacing: 0;
+    line-height: 18px;
+    padding: 9px 14px 9px 10px;
+    text-decoration: none;
+    img {
+      margin-right: 10px;
+    }
+  }
+  .dropdown-content {
+    width: 1198px;
+    height: 160px;
+  }
+}
