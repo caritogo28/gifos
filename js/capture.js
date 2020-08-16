@@ -8,9 +8,10 @@ let title = document.querySelector(".pre_capture_title h1");
 let recorder;
 let form = new FormData();
 
-let myGifsArray = ["holi"];
+let myGifsArray = [];
 console.log(`El array debe estar vacio ${myGifsArray}`);
 console.log(myGifsArray);
+localStorage.setItem("myGifs", myGifsArray);
 let myGif;
 let saveGifs;
 
@@ -122,7 +123,7 @@ document.getElementById("preview_start").onclick = () => {
       let gifContainer = document.querySelector(".uploaded_gif");
       myGif = await urlGif(idGif);
       gifContainer.src = myGif;
-      myGifsArray.push("holi");
+      myGifsArray.push(myGif);
       console.log(`Debería agregarse el nuevo gif ${myGifsArray}`);
       localStorage.setItem("myGifs", JSON.stringify(myGifsArray));
       console.log(myGifsArray);

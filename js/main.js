@@ -3,18 +3,25 @@ const URL = "http://api.giphy.com/v1/gifs/search?";
 const URL_Trend = "http://api.giphy.com/v1/gifs/trending?";
 let image;
 let hastag;
-//http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5
+//http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5 responseData[i].images["480w_still"].url;
 let arrayNode = document.querySelectorAll(".gif");
+let arrayNodeHastag = [];
+let trendincito = document.querySelector(".trends");
 let arrayNodeImg = [];
-let arrayNodeHastag = document.querySelectorAll("h3");
+let divi = [];
 
 //3. respuesta de la Api dataApi
 //Crear img y ponerle Trends
-const render = async (responseData) => {
+/* const render = async (responseData) => {
   for (let i of arrayNode.keys()) {
     image = document.createElement("img");
-    image.src = await responseData[i].images.fixed_height.url;
-    image.className = "imgClass";
+    image.src = await responseData[i].images.original.url;
+    if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) < 1.4){
+      image.className = "imgClass";
+      image.className = "double";
+      console.log(responseData[i].images["480w_still"].width)
+    } else {image.className = "imgClass";
+    console.log(responseData[i].images["480w_still"].width)}
     arrayNode[i].appendChild(image);
 
     let val = responseData[i].slug.includes(responseData[i].id);
@@ -25,9 +32,78 @@ const render = async (responseData) => {
       console.log(val, id);
     }
 
-    arrayNodeHastag[i].innerText = responseData[i].slug;
-    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/-/g, " #");
+    arrayNodeHastag[i].innerText = responseData[i].title;
+    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+    arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, "");
   }
+  arrayNodeImg = document.querySelectorAll(".imgClass");
+
+  return arrayNodeImg;
+};
+ */
+
+
+
+const render = async (responseData) => {
+  for (let i of responseData.keys()) {
+          //Crear divs
+          let createDivs = document.createElement("div");
+          createDivs.className = "gif";
+
+          
+          if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) > 1.8){
+            createDivs.className = "gif double";      
+          }
+
+          //Crear imágenes y traerlas
+          image = document.createElement("img");
+          image.setAttribute("loading","lazy");
+          image.className = "imgClass";
+          image.src = await responseData[i].images.downsized_medium.url;
+          //Contenedor titulo
+          let containerTitle = document.createElement("div");
+          containerTitle.className = "trends_gif_title";
+          //titulo
+          let createH3 =  document.createElement("h3");
+
+          containerTitle.appendChild(createH3);
+          createDivs.appendChild(containerTitle);    
+          createDivs.appendChild(image)
+          trendincito.appendChild(createDivs);
+
+          //Traer titulos
+          let arrayNodeHastag = document.querySelectorAll("h3");
+          arrayNodeHastag[i].innerText = responseData[i].title;
+          arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+          arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, ""); 
+
+
+
+
+/*     if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) < 1.4){
+      console.log(responseData[i].images["480w_still"].width)
+
+      
+    } else {
+    console.log(responseData[i].images["480w_still"].width)}
+         */
+/*     image = document.createElement("img");
+    image.src = await responseData[i].images.original.url;
+    arrayNode[i].appendChild(image);
+
+    let val = responseData[i].slug.includes(responseData[i].id);
+    let id = responseData[i].id;
+    console.log(val, id);
+    if (val == true) {
+      arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(id[i], "NO");
+      console.log(val, id);
+    }
+
+    arrayNodeHastag[i].innerText = responseData[i].title;
+    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+    arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, ""); */
+  }
+  arrayNodeHastag = document.querySelectorAll("h3");
   arrayNodeImg = document.querySelectorAll(".imgClass");
 
   return arrayNodeImg;
@@ -35,17 +111,22 @@ const render = async (responseData) => {
 
 //Cambiar src por Search
 const renderSearch = async (responseData) => {
-  console.log(arrayNodeImg);
   for (let i = 4; i < arrayNodeImg.length; i++) {
-    arrayNodeImg[i].setAttribute("src", responseData[i].images.fixed_height.url);
-    arrayNodeHastag[i].innerText = responseData[i].slug;
-    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/-/g, " #");
+    divi = document.querySelectorAll(".gif");
+    divi[i].className = "gif";  
+    arrayNodeImg[i].setAttribute("src", responseData[i].images.downsized_medium.url);
+    if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) > 1.8){
+      divi[i].className = "gif double";      
+    } 
+    arrayNodeHastag[i].innerText = responseData[i].title;
+    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+    arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, "");
   }
 };
 
 //1. traer los datos
 const dataTrend = async () => {
-  let response = await fetch(`${URL_Trend}api_key=${API_KEY}&limit=25`);
+  let response = await fetch(`${URL_Trend}api_key=${API_KEY}&limit=15`);
   let data = await response.json();
   console.log(data.data);
   return data.data;
