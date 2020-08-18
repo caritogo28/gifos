@@ -15,6 +15,8 @@ localStorage.setItem("myGifs", myGifsArray);
 let myGif;
 let saveGifs;
 
+let timeout = 0;
+
 //Para adicionar Class
 let addClass = (nodeAdd, classAdd) => {
   document.querySelector(nodeAdd).classList.add(classAdd);
@@ -60,7 +62,7 @@ document.getElementById("btn-start-recording").onclick = () => {
   /* 
   removeClass("#btn-stop-recording", "hidden");
   removeClass(".time", "hidden"); */
-
+  chronometer();
   navigator.mediaDevices
     .getUserMedia({
       audio: false,
@@ -85,7 +87,8 @@ document.getElementById("btn-start-recording").onclick = () => {
 document.getElementById("btn-stop-recording").onclick = () => {
   video.src = video.srcObject = null;
   //this.disabled = true; para que el botón se vea desactivado
-
+  chronometer();
+  
   recorder.stopRecording(() => {
     addClass("#video", "hidden");
     addClass(".stop_btn", "hidden");
@@ -150,4 +153,27 @@ for (let i of arrayAv.keys()) {
   image.src = myGifsArray[i];
   console.log(`Renderizar ${myGifsArray[i]}`);
   arrayAv[i].appendChild(image);
+}
+
+//Cronómetro
+function chronometer() {
+	if (timeout == 0) {
+		start = vuelta = new Date().getTime();
+		startChronometer();
+	} else {
+		clearTimeout(timeout);
+		timeout = 0;
+	}
+}
+
+function startChronometer() {
+	let now = new Date().getTime();
+	let difference = new Date(now - start);
+	let durationGif = LeadingZero(difference.getUTCHours()) + ':' + LeadingZero(difference.getUTCMinutes()) + ':' + LeadingZero(difference.getUTCSeconds());
+	document.getElementById('time').innerHTML = durationGif;
+	timeout = setTimeout('startChronometer()', 1000);
+}
+
+function LeadingZero(Time) {
+	return Time < 10 ? '0' + Time : +Time;
 }

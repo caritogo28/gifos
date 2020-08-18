@@ -424,7 +424,7 @@ html[data-theme="dark"] .dropdown-content a:active {
   background-color: var(--gray-search);
   -webkit-box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
           box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
-  margin: 0 140px 64px 100px;
+  margin: 0 140px 12px 100px;
   padding: 2px;
 }
 
@@ -468,9 +468,34 @@ html[data-theme="dark"] .dropdown-content a:active {
   margin-right: 10px;
 }
 
+.search_button-input {
+  background: var(--button-menu);
+  border: 1px solid var(--dark-blue);
+  -webkit-box-shadow: var(--border-buttoms);
+          box-shadow: var(--border-buttoms);
+  color: #000;
+}
+
 .search .dropdown-content {
   width: 1198px;
   height: 160px;
+}
+
+.searches {
+  margin: 12px 140px 0 100px;
+  padding: 12px 0 12px 0;
+  font-size: 14px;
+}
+
+.searches_item {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 10px 8px 7px;
+  margin-right: 8px;
+  background: var(----blue-button-gif);
+  border: 1px solid var(--purple-btn-gif-border);
+  -webkit-box-shadow: inset -2px -2px 0 0 var(--blue-btn-gif-shadow), inset 2px 2px 0 0 #fff;
+          box-shadow: inset -2px -2px 0 0 var(--blue-btn-gif-shadow), inset 2px 2px 0 0 #fff;
 }
 
 .suggestions,
@@ -496,16 +521,16 @@ html[data-theme="dark"] .dropdown-content a:active {
 }
 
 .suggestions .gif {
-  width: 288px;
-  height: 313px;
+  width: 100%;
+  height: 40rem;
 }
 
 .trends {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 32px (32rem)[3];
+  -ms-grid-rows: 32px (1fr)[3];
   -ms-grid-columns: (1fr)[4];
-      grid-template: 32px repeat(3, 32rem)/repeat(4, 1fr);
+      grid-template: 32px repeat(3, 1fr)/repeat(4, 1fr);
   grid-auto-flow: row dense;
   grid-gap: 16px;
   /* .double_izq {
@@ -520,7 +545,7 @@ html[data-theme="dark"] .dropdown-content a:active {
 
 .trends .gif {
   width: 100%;
-  height: 32rem;
+  height: 40rem;
   position: relative;
 }
 

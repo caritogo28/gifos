@@ -77,7 +77,6 @@
     }
   }
 }
-
 .dotted_btn_my-gif {
   &:hover {
     @include dotted-hover(relative, null, null);
@@ -100,7 +99,6 @@
 .dropbtn {
   width: 36px;
 }
-
 .dropdown-content {
   background-color: var(--gray-search);
   box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
@@ -136,7 +134,7 @@
   height: 99px;
   background-color: var(--gray-search);
   box-shadow: inset -2px -2px 0 0 var(--gray-search-shadow), inset 2px 2px 0 0 #fff;
-  margin: 0 140px 64px 100px;
+  margin: 0 140px 12px 100px;
   padding: 2px;
   &_title {
     background-image: var(--gradient);
@@ -172,8 +170,28 @@
       margin-right: 10px;
     }
   }
+  &_button-input {
+    background: var(--button-menu);
+    border: 1px solid var(--dark-blue);
+    box-shadow: var(--border-buttoms);
+    color: #000;
+  }
   .dropdown-content {
     width: 1198px;
     height: 160px;
+  }
+}
+.searches {
+  margin: 12px 140px 0 100px;
+  padding: 12px 0 12px 0;
+  font-size: 14px;
+  &_item {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px 8px 7px;
+    margin-right: 8px;
+    background: var(----blue-button-gif);
+    border: 1px solid var(--purple-btn-gif-border);
+    box-shadow: inset -2px -2px 0 0 var(--blue-btn-gif-shadow), inset 2px 2px 0 0 #fff;
   }
 }
