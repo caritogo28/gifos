@@ -1,5 +1,5 @@
 const API_KEY = "gScHgsNe7Y2Q0e3U3rKZJWc1X1HZa6uo";
-const URL = "https://api.giphy.com/v1/gifs/search?";
+const URL = "https://api.giphy.com/v1/gifs/search";
 const URL_Trend = "https://api.giphy.com/v1/gifs/trending?";
 let image;
 //http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=YOUR_API_KEY&limit=5 responseData[i].images["480w_still"].url;
@@ -13,7 +13,7 @@ let arrayGif = [];
 let arrayWords = [];
 let createDivs;
 
-const create = function (element, clase){
+const create = function (element, clase) {
   createDivs = document.createElement(element);
   createDivs.className = clase;
 };
@@ -24,57 +24,56 @@ const searchWords = function (searchWord) {
   containerSearches.appendChild(createSearchItem);
   createSearchItem.innerText = `#${searchWord}`;
   createSearchItem.setAttribute("href", "#trends");
-}
+};
 
 //3. respuesta de la Api dataApi
 //Crear img y ponerle Trends
 
 const renderSugg = async (responseData) => {
   for (let i = 0; i < 4; i++) {
-          //Crear divs
-          create("div", "gif");
-          
-          //Crear imágenes y traerlas
-          image = document.createElement("img");
-          image.setAttribute("loading","lazy");
-          image.className = "imgClass";
-          image.src = await responseData[i].images.downsized_medium.url;
-          //Contenedor Título
-          let containerTitle = document.createElement("div");
-          containerTitle.className = "gif_title";
-          //Título
-          let createH3 =  document.createElement("h3");
-          //Botón
-          let createA = document.createElement("a");
-          createA.className = "more";
-          createA.innerText = "Ver más...";
-          createA.setAttribute("href", "#trends");
+    //Crear divs
+    create("div", "gif");
 
-          containerTitle.appendChild(createH3);
-          createDivs.appendChild(containerTitle);    
-          createDivs.appendChild(image);
-          createDivs.appendChild(createA);
-          containerSuggestion.appendChild(createDivs);
+    //Crear imágenes y traerlas
+    image = document.createElement("img");
+    image.setAttribute("loading", "lazy");
+    image.className = "imgClass";
+    image.src = await responseData[i].images.downsized_medium.url;
+    //Contenedor Título
+    let containerTitle = document.createElement("div");
+    containerTitle.className = "gif_title";
+    //Título
+    let createH3 = document.createElement("h3");
+    //Botón
+    let createA = document.createElement("a");
+    createA.className = "more";
+    createA.innerText = "Ver más...";
+    createA.setAttribute("href", "#trends");
 
-          //Traer titulos
-          let arrayNodeHastag = document.querySelectorAll("h3");
-          arrayNodeHastag[i].innerText = responseData[i].title;
-          arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
-          arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, ""); 
+    containerTitle.appendChild(createH3);
+    createDivs.appendChild(containerTitle);
+    createDivs.appendChild(image);
+    createDivs.appendChild(createA);
+    containerSuggestion.appendChild(createDivs);
 
-          //Agregarle link a los botones
-          document.querySelector(".more").addEventListener("click", function(){
-            let titles = responseData[i].title;
-            document.querySelector(".trends h2").innerText = `${titles}:`;
-          
-            //2. capturar los datos
-            dataApi(titles)
-              .then((response) => renderSearch(response))
-              .catch((error) => console.log(error, "hubo un error"));
-          
-            console.log("holi", titles);
-          })
-          
+    //Traer titulos
+    let arrayNodeHastag = document.querySelectorAll("h3");
+    arrayNodeHastag[i].innerText = responseData[i].title;
+    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+    arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, "");
+
+    //Agregarle link a los botones
+    createA.onclick = () => {
+      let titles = responseData[i].title;
+      document.querySelector(".trends h2").innerText = `${titles}:`;
+
+      //2. capturar los datos
+      dataApi(titles)
+        .then((response) => renderSearch(response))
+        .catch((error) => console.log(error, "hubo un error"));
+
+      console.log("holi", titles);
+    };
   }
   arrayNodeHastag = document.querySelectorAll("h3");
   arrayNodeImg = document.querySelectorAll(".imgClass");
@@ -82,66 +81,63 @@ const renderSugg = async (responseData) => {
   return arrayNodeImg;
 };
 
-
 const render = async (responseData) => {
   for (let i = 4; i < responseData.length; i++) {
-          //Crear divs
-          
-          createDivs = document.createElement("div");
-          createDivs.className = "gif";
+    //Crear divs
 
-          
-          if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) > 1.8){
-            createDivs.className = "gif double";      
-          }
+    createDivs = document.createElement("div");
+    createDivs.className = "gif";
 
-          //Crear imágenes y traerlas
-          image = document.createElement("img");
-          image.setAttribute("loading","lazy");
-          image.className = "imgClass";
-          image.src = await responseData[i].images.downsized_medium.url;
-          //Contenedor titulo
-          let containerTitle = document.createElement("div");
-          containerTitle.className = "trends_gif_title";
-          //titulo
-          let createH3 =  document.createElement("h3");
+    if (responseData[i].images["480w_still"].width / responseData[i].images["480w_still"].height > 1.8) {
+      createDivs.className = "gif double";
+    }
 
-          containerTitle.appendChild(createH3);
-          createDivs.appendChild(containerTitle);    
-          createDivs.appendChild(image)
-          containerTrends.appendChild(createDivs);
+    //Crear imágenes y traerlas
+    image = document.createElement("img");
+    image.setAttribute("loading", "lazy");
+    image.className = "imgClass";
+    image.src = await responseData[i].images.downsized_medium.url;
+    //Contenedor titulo
+    let containerTitle = document.createElement("div");
+    containerTitle.className = "trends_gif_title";
+    //titulo
+    let createH3 = document.createElement("h3");
 
-          //Traer titulos
-          let arrayNodeHastag = document.querySelectorAll("h3");
-          arrayNodeHastag[i].innerText = responseData[i].title;
-          arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
-          arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, ""); 
+    containerTitle.appendChild(createH3);
+    createDivs.appendChild(containerTitle);
+    createDivs.appendChild(image);
+    containerTrends.appendChild(createDivs);
+
+    //Traer titulos
+    let arrayNodeHastag = document.querySelectorAll("h3");
+    arrayNodeHastag[i].innerText = responseData[i].title;
+    arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
+    arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, "");
   }
   arrayNodeHastag = document.querySelectorAll("h3");
   arrayNodeImg = document.querySelectorAll(".imgClass");
 
   return arrayNodeImg;
-}; 
+};
 
 //Cambiar src por Search
 const renderSearch = async (responseData) => {
   for (let i = 4; i < arrayNodeImg.length; i++) {
     arrayGif = document.querySelectorAll(".gif");
-    arrayGif[i].className = "gif";  
+    arrayGif[i].className = "gif";
     arrayNodeImg[i].setAttribute("src", responseData[i].images.downsized_medium.url);
-    if ((responseData[i].images["480w_still"].width/responseData[i].images["480w_still"].height) > 1.8){
-      arrayGif[i].className = "gif double";      
-    } 
+    if (responseData[i].images["480w_still"].width / responseData[i].images["480w_still"].height > 1.8) {
+      arrayGif[i].className = "gif double";
+    }
     arrayNodeHastag[i].innerText = responseData[i].title;
     arrayNodeHastag[i].innerText = "#" + arrayNodeHastag[i].innerText.replace(/ +/g, " #");
     arrayNodeHastag[i].innerText = arrayNodeHastag[i].innerText.replace(/#by/g, "");
   }
 };
 
-
 //1. traer los datos
 const dataTrend = async () => {
-  let response = await fetch(`${URL_Trend}api_key=${API_KEY}&limit=20`);
+  let response = await fetch(`${URL_Trend}api_key=${API_KEY}&limit=25`);
   let data = await response.json();
   console.log(data.data);
   return data.data;
@@ -156,20 +152,26 @@ dataTrend()
   .catch((error) => console.log(error, "hubo un error"));
 
 const dataApi = async (category) => {
-  let response = await fetch(`${URL}q=${category}&api_key=${API_KEY}&limit=20`);
+  let response = await fetch(`${URL}?q=${category}&api_key=${API_KEY}&limit=25`);
   let data = await response.json();
   console.log(data.data);
   return data.data;
 };
 
+let newArray = [];
+if (localStorage.getItem("searchWords")) {
+  newArray = JSON.parse(localStorage.getItem("searchWords"));
+}
+
 //2. capturar los datos
 document.getElementById("search_button").addEventListener("click", function () {
   let keywordSearch = document.querySelector(".search_input").value;
-  arrayWords.push(keywordSearch);
-  localStorage.setItem("searchWords", JSON.stringify(arrayWords));
-  arrayWords = localStorage.getItem("searchWords");
-  arrayWords = JSON.parse(arrayWords);
-  searchWords(arrayWords);
+  newArray.push(keywordSearch);
+  console.log("Nuevo array", newArray);
+  localStorage.setItem("searchWords", JSON.stringify(newArray));
+  /* arrayWords = localStorage.getItem("searchWords");
+  arrayWords = JSON.parse(arrayWords); */
+  searchWords(keywordSearch);
   console.log(keywordSearch, arrayWords);
   document.querySelector(".trends h2").innerText = `${keywordSearch}:`;
 
@@ -179,8 +181,7 @@ document.getElementById("search_button").addEventListener("click", function () {
     .catch((error) => console.log(error, "hubo un error"));
 });
 
-
-
+console.log("Nuevo array 2", newArray);
 /* document.querySelector(".searches_item").addEventListener("click", function(){
   let titles = "holisss";
   document.querySelector(".trends h2").innerText = `${titles}:`;
@@ -202,7 +203,7 @@ let dropdownSearch = document.querySelector(".search_input").addEventListener("c
   dropdown.forEach((drop) => {
     drop.classList.toggle("dropdown-show");
   });
-  document.querySelector(".search_button").className = "search_button search_button-input"; 
+  document.querySelector(".search_button").className = "search_button search_button-input";
 });
 console.log(dropdownSearch);
 
@@ -220,8 +221,17 @@ window.onclick = function (e) {
       dropdownButton.classList.remove("dropdown-show");
     }
   }
+  if (!e.target.matches) ".search_button";
 };
 
+window.onload = function (e) {
+  let arrayW = localStorage.getItem("searchWords");
+  arrayW = JSON.parse(arrayW);
+  console.log("array local", arrayW);
+  for (let i = 0; i < arrayW.length; i++) {
+    searchWords(arrayW[i]);
+  }
+};
 // Cerrar cuando da click por fuera
 /* function dropdown() {
   document.querySelector(".dropdown").classList.toggle("dropdown-show");
