@@ -12,3 +12,6 @@ document.querySelector("#day").addEventListener("click", (e) => {
   document.querySelector(".button_drop img").setAttribute("src", "./assets/dropdown.svg");
   document.querySelector(".search_button img").setAttribute("src", "./assets/lupa_inactive.svg");
 });
+
+
+localStorage.getItem('themes') == 'sNight' ? sailorNightMode() : sailorDayMode();

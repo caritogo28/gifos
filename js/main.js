@@ -246,3 +246,54 @@ window.onclick = function (e) {
 }; */
 
 //-----
+
+//Crear botones
+
+const dataApiWord = async (word) => {
+  let response = await fetch(`${URL}/tags?q=${word}&api_key=${API_KEY}`);
+  let data = await response.json();
+  console.log(data.data);
+  return data.data;
+};
+
+
+//Barra de buscador
+
+document.getElementById('search').addEventListener('keypress', onKeyDown);
+let word = '';
+let vector = new Array();
+const elementos = document.querySelectorAll('.search_word');
+let dropcont = document.querySelector(".dropdown-search");
+
+document.getElementById('search').addEventListener('keydown', borrar);
+function borrar(event) {
+    const key = event.key;
+    if(key === "Backspace" || key === 'Delete') {
+        word = '';
+    }
+}
+function onKeyDown(event) {
+    let key = event.key; // "A", "1", "Enter", "ArrowRight"...
+    console.log(key)
+    word += key;
+    
+    dataApiWord(word)
+    .then((response) => ciclo(response))
+    .catch((error) => console.log(error))
+}
+function ciclo(array) {
+    for(let i of array.keys()) {
+        vector.push(array[i].name)
+        let createRel = document.createElement("a");
+        createRel.className = "search_word";
+        createRel.innerText = vector[i];
+        createRel.setAttribute("href", "#trends");
+        dropcont.appendChild(createRel);
+        console.log(createRel, dropcont);
+        if(i >= 2) {
+            break;
+ }
+    }
+
+    vector = [];
+}
