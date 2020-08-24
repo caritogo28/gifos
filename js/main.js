@@ -24,6 +24,17 @@ const searchWords = function (searchWord) {
   containerSearches.appendChild(createSearchItem);
   createSearchItem.innerText = `#${searchWord}`;
   createSearchItem.setAttribute("href", "#trends");
+
+  createSearchItem.onclick = () => {
+    document.querySelector(".trends h2").innerText = `${searchWord}:`;
+
+    //2. capturar los datos
+    dataApi(searchWord)
+      .then((response) => renderSearch(response))
+      .catch((error) => console.log(error, "hubo un error"));
+
+    console.log(createSearchItem, searchWord);
+  };
 };
 
 //3. respuesta de la Api dataApi
@@ -32,7 +43,7 @@ const searchWords = function (searchWord) {
 const renderSugg = async (responseData) => {
   for (let i = 0; i < 4; i++) {
     //Crear divs
-    create("div", "gif");
+    create("div", "gif gif-hover");
 
     //Crear imágenes y traerlas
     image = document.createElement("img");
@@ -46,7 +57,7 @@ const renderSugg = async (responseData) => {
     let createH3 = document.createElement("h3");
     //Botón
     let createA = document.createElement("a");
-    createA.className = "more";
+    createA.className = "more more-hover";
     createA.innerText = "Ver más...";
     createA.setAttribute("href", "#trends");
 
@@ -173,6 +184,7 @@ document.getElementById("search_button").addEventListener("click", function () {
   arrayWords = JSON.parse(arrayWords); */
   searchWords(keywordSearch);
   console.log(keywordSearch, arrayWords);
+
   document.querySelector(".trends h2").innerText = `${keywordSearch}:`;
 
   //2. capturar los datos
@@ -215,13 +227,25 @@ function expand() {
 }
 
 window.onclick = function (e) {
-  if (!e.target.matches(".dropbtn")) {
-    var dropdownButton = document.querySelector(".dropdown");
-    if (dropdownButton.classList.contains("dropdown-show")) {
-      dropdownButton.classList.remove("dropdown-show");
+  let dropdown = document.getElementById("dropdown");
+  let keyword = document.getElementById("search_dropdown");
+  let searchBtn = document.querySelector(".search_button");
+  // close all
+  if (!e.target.matches(".dropbtn") && !e.target.matches(".search_input")) {
+    dropdown.classList.remove("dropdown-show");
+    // keyword.classList.remove('showK');
+  }
+  // close search
+  if (e.target.matches(".search_input")) {
+    dropdown.classList.remove("dropdown-show");
+    if ((searchBtn.className = "search_button search_button-input")) {
+      searchBtn.classList.remove("search_button-input");
     }
   }
-  if (!e.target.matches) ".search_button";
+  // close dropdown
+  if (e.target.matches(".dropbtn")) {
+    keyword.classList.remove("dropdown-show");
+  }
 };
 
 window.onload = function (e) {
@@ -232,20 +256,6 @@ window.onload = function (e) {
     searchWords(arrayW[i]);
   }
 };
-// Cerrar cuando da click por fuera
-/* function dropdown() {
-  document.querySelector(".dropdown").classList.toggle("dropdown-show");
-}
-window.onclick = function (e) {
-  if (!e.target.matches(".dropbtn")) {
-    var dropdownButton = document.querySelector(".dropdown");
-    if (dropdownButton.classList.contains("dropdown-show")) {
-      dropdownButton.classList.remove("dropdown-show");
-    }
-  }
-}; */
-
-//-----
 
 //Crear botones
 
@@ -256,44 +266,53 @@ const dataApiWord = async (word) => {
   return data.data;
 };
 
-
 //Barra de buscador
 
-document.getElementById('search').addEventListener('keypress', onKeyDown);
-let word = '';
+document.getElementById("search").addEventListener("keypress", onKeyDown);
+let word = "";
 let vector = new Array();
-const elementos = document.querySelectorAll('.search_word');
+const elementos = document.querySelectorAll(".search_word");
 let dropcont = document.querySelector(".dropdown-search");
 
-document.getElementById('search').addEventListener('keydown', borrar);
+document.getElementById("search").addEventListener("keydown", borrar);
 function borrar(event) {
-    const key = event.key;
-    if(key === "Backspace" || key === 'Delete') {
-        word = '';
-    }
+  const key = event.key;
+  if (key === "Backspace" || key === "Delete") {
+    word = "";
+  }
 }
 function onKeyDown(event) {
-    let key = event.key; // "A", "1", "Enter", "ArrowRight"...
-    console.log(key)
-    word += key;
-    
-    dataApiWord(word)
+  let key = event.key; // "A", "1", "Enter", "ArrowRight"...
+  console.log(key);
+  word += key;
+
+  dataApiWord(word)
     .then((response) => ciclo(response))
-    .catch((error) => console.log(error))
+    .catch((error) => console.log(error));
 }
 function ciclo(array) {
-    for(let i of array.keys()) {
-        vector.push(array[i].name)
-        let createRel = document.createElement("a");
-        createRel.className = "search_word";
-        createRel.innerText = vector[i];
-        createRel.setAttribute("href", "#trends");
-        dropcont.appendChild(createRel);
-        console.log(createRel, dropcont);
-        if(i >= 2) {
-            break;
- }
-    }
+  for (let i of array.keys()) {
+    vector.push(array[i].name);
+    let createRel = document.createElement("a");
+    createRel.className = "search_word";
+    createRel.innerText = vector[i];
+    createRel.setAttribute("href", "#trends");
+    dropcont.appendChild(createRel);
 
-    vector = [];
+    createRel.onclick = () => {
+      document.querySelector(".trends h2").innerText = `${createRel.text}:`;
+
+      //2. capturar los datos
+      dataApi(createRel.text)
+        .then((response) => renderSearch(response))
+        .catch((error) => console.log(error, "hubo un error"));
+
+      console.log(createRel, createRel.text);
+    };
+    if (i >= 2) {
+      break;
+    }
+  }
+
+  vector = [];
 }

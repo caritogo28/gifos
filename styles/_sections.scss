@@ -15,6 +15,7 @@
   .gif {
     width: 100%;
     height: 40rem;
+    position: relative;
   }
 }
 
@@ -27,6 +28,11 @@
     width: 100%;
     height: 40rem;
     position: relative;
+    &:hover {
+      &::after {
+        @include dotted-buttoms(98%, 98%, 1px);
+      }
+    }
     .trends_gif_title {
       display: none;
     }
@@ -47,14 +53,6 @@
   .double {
     grid-column: span 2;
   }
-  /* .double_izq {
-    grid-column: 1 / 3;
-    width: 592px;
-  }
-  .double_der {
-    grid-column: 3 / 5;
-    width: 592px;
-  } */
 }
 
 .subtitle {
@@ -99,5 +97,24 @@
     position: absolute;
     bottom: 19px;
     left: 11px;
+    z-index: 2;
+  }
+}
+
+.gif-hover {
+  &:hover {
+    &::after {
+      @include dotted-buttoms(98%, 92%, 1px);
+    }
+  }
+}
+
+.more-hover {
+  &:hover {
+    &::after {
+      @include dotted-buttoms(95%, 82%, 1px);
+      margin: 0px;
+      bottom: 3px;
+    }
   }
 }

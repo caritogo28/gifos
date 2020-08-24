@@ -9,9 +9,9 @@ let recorder;
 let form = new FormData();
 
 let myGifsArray = [];
-console.log(`El array debe estar vacio ${myGifsArray}`);
-console.log(myGifsArray);
-localStorage.setItem("myGifs", myGifsArray);
+if (localStorage.getItem("myGifs")) {
+  myGifsArray = JSON.parse(localStorage.getItem("myGifs"));
+}
 let myGif;
 let saveGifs;
 
@@ -88,7 +88,7 @@ document.getElementById("btn-stop-recording").onclick = () => {
   video.src = video.srcObject = null;
   //this.disabled = true; para que el botón se vea desactivado
   chronometer();
-  
+
   recorder.stopRecording(() => {
     addClass("#video", "hidden");
     addClass(".stop_btn", "hidden");
@@ -142,38 +142,42 @@ async function urlGif(id) {
   return urlImg;
 }
 
-savedGifs = localStorage.getItem("myGifs");
-myGifsArray = JSON.parse(savedGifs);
-console.log(`Deberia traer la info del Local ${myGifsArray}`);
-
-let arrayAv = document.querySelectorAll(".my-new-gif");
-console.log(arrayAv);
-for (let i of arrayAv.keys()) {
-  let image = document.createElement("img");
-  image.src = myGifsArray[i];
-  console.log(`Renderizar ${myGifsArray[i]}`);
-  arrayAv[i].appendChild(image);
-}
+window.onload = function (e) {
+  let savedGifs = localStorage.getItem("myGifs");
+  savedGifs = JSON.parse(savedGifs);
+  console.log("array localGif", savedGifs);
+  for (let i = 0; i < savedGifs.length; i++) {
+    let contenedor = document.querySelector(".mygifs");
+    let myGifCont = document.createElement("div");
+    myGifCont.className = "my-new-gif";
+    let image = document.createElement("img");
+    image.src = savedGifs[i];
+    console.log(`Renderizar ${savedGifs[i]}`);
+    myGifCont.appendChild(image);
+    contenedor.appendChild(myGifCont);
+  }
+};
 
 //Cronómetro
 function chronometer() {
-	if (timeout == 0) {
-		start = vuelta = new Date().getTime();
-		startChronometer();
-	} else {
-		clearTimeout(timeout);
-		timeout = 0;
-	}
+  if (timeout == 0) {
+    start = vuelta = new Date().getTime();
+    startChronometer();
+  } else {
+    clearTimeout(timeout);
+    timeout = 0;
+  }
 }
 
 function startChronometer() {
-	let now = new Date().getTime();
-	let difference = new Date(now - start);
-	let durationGif = LeadingZero(difference.getUTCHours()) + ':' + LeadingZero(difference.getUTCMinutes()) + ':' + LeadingZero(difference.getUTCSeconds());
-	document.getElementById('time').innerHTML = durationGif;
-	timeout = setTimeout('startChronometer()', 1000);
+  let now = new Date().getTime();
+  let difference = new Date(now - start);
+  let durationGif =
+    LeadingZero(difference.getUTCHours()) + ":" + LeadingZero(difference.getUTCMinutes()) + ":" + LeadingZero(difference.getUTCSeconds());
+  document.getElementById("time").innerHTML = durationGif;
+  timeout = setTimeout("startChronometer()", 1000);
 }
 
 function LeadingZero(Time) {
-	return Time < 10 ? '0' + Time : +Time;
+  return Time < 10 ? "0" + Time : +Time;
 }
