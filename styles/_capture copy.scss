@@ -278,7 +278,7 @@ video,
   align-items: center;
 }
 
-<div class="wrap-barra" > <div class="charger" > </div > <div class="barra" > </div > .wrap-barra {
+<div class="wrap-barra" > <div class="charger" > </div > <div class="barra" > </div > .loading_bar {
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -286,7 +286,7 @@ video,
   height: 20px;
   background-color: #999999;
 }
-.charger {
+.loaded {
   z-index: 1;
   position: absolute;
   width: 320px;
@@ -294,13 +294,13 @@ video,
   animation: progreso 5s linear infinite;
   background-color: #f7c9f3;
 }
-.barra {
+.loading_item {
   z-index: 10;
   width: 12px;
   height: 20px;
   border: 1px solid #b4b4b4;
 }
-santiagoQuintero Guarin19: 07 @keyframes progreso {
+santiagoquinteroGuarin19: 07 @keyframes progreso {
   0% {
     width: 0;
   }

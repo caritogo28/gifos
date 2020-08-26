@@ -37,7 +37,7 @@ document.getElementById("start").onclick = () => {
   addClass(".pre_capture", "hidden");
   removeClass(".recording", "hidden");
   document.querySelector(".container_btn").style.display = "none";
-
+  addClass(".mygifs", "hidden");
   navigator.mediaDevices
     .getUserMedia({
       audio: false,
@@ -111,7 +111,7 @@ document.getElementById("btn-stop-recording").onclick = () => {
 document.getElementById("preview_start").onclick = () => {
   addClass(".recording", "hidden");
   removeClass(".upload", "hidden");
-
+  removeClass(".mygifs", "hidden");
   fetch(`${URL_UPLOAD}?api_key=${APIKey}&username=carolinagomezsanchez&source_image_url=${URL.createObjectURL(recorder.getBlob())}`, {
     method: "post",
     body: form,
@@ -120,6 +120,7 @@ document.getElementById("preview_start").onclick = () => {
     .then(async (response) => {
       addClass(".upload", "hidden");
       removeClass(".uploaded", "hidden");
+      removeClass(".mygifs", "hidden");
       let dataUpload = await response.json();
       let idGif = dataUpload.data.id;
 
