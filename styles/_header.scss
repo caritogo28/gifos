@@ -77,6 +77,24 @@
     }
   }
 }
+.dotted_btn_search {
+  &:active {
+    @include dotted-hover(null, var(--pink-hover-btn-menu), var(--border-buttoms));
+    &::after {
+      @include dotted-buttoms(95%, 89%, 0);
+      top: 0;
+    }
+  }
+}
+.dotted_btn_word {  
+  &:hover {
+    @include dotted-hover(null, var(--color-word-btn), var(--gray-search-shadow));
+    &::after {
+      @include dotted-buttoms(97.5%, 19%, 12px);
+      margin: -4px 2px;
+    }
+  }
+}
 .dotted_btn_my-gif {
   &:hover {
     @include dotted-hover(relative, null, null);
@@ -166,6 +184,8 @@
     line-height: 18px;
     padding: 9px 14px 9px 10px;
     text-decoration: none;
+    cursor: default;
+    position: relative;
     img {
       margin-right: 10px;
     }
@@ -174,7 +194,8 @@
     background: var(--button-menu);
     border: 1px solid var(--dark-blue);
     box-shadow: var(--border-buttoms);
-    color: #000;
+    color: var(--color-search-btn);
+    cursor: pointer;
   }
   .dropdown-content {
     width: 1198px;
@@ -185,6 +206,7 @@
   margin: 12px 140px 0 100px;
   padding: 12px 0 12px 0;
   font-size: 14px;
+  overflow: hidden;
   &_item {
     color: #fff;
     text-decoration: none;

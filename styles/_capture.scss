@@ -21,6 +21,9 @@
     position: absolute;
     left: 25px;
   }
+  h2 {
+    border: none;
+  }
   &_subtitle {
     @include text(var(--font-size-buttom), var(--dark-blue), left, 2.2rem);
     font-family: ChakraPetch-Bold;
@@ -48,15 +51,17 @@
   justify-content: flex-end;
   padding-right: 36px;
   .cancel {
-    @include text(var(--font-size-buttom), var(--dark-blue), center, 2.1rem);
-    @include capture-buttom(144px, 36px, 6.5px 38.9px, var(--bg-color), 1px solid var(--dark-blue));
+    @include text(var(--font-size-buttom), var(--color-search-btn), center, 2.1rem);
+    @include capture-buttom(144px, 36px, 6.5px 38.9px, var(--bg-color), 1px solid var(--color-search-btn));
     box-shadow: inset -1px -1px 0 0 --button-shadow, inset 1px 1px 0 0 #fff;
+    position: relative;
   }
   .start {
-    @include text(var(--font-size-buttom), var(--dark-blue), center, 2.1rem);
-    @include capture-buttom(144px, 36px, 6.5px 35px, var(--button-menu), 1px solid var(--dark-blue));
+    @include text(var(--font-size-buttom), var(--color-search-btn), center, 2.1rem);
+    @include capture-buttom(144px, 36px, 6.5px 35px, var(--button-menu), 1px solid var(--color-search-btn));
     margin-left: 16px;
     box-shadow: inset -1px -1px 0 0 --button-shadow, inset 1px 1px 0 0 #fff;
+    position: relative;
   }
 }
 
@@ -144,15 +149,17 @@ video,
   }
   .preview_buttoms {
     .preview_cancel {
-      @include text(var(--font-size-buttom), var(--dark-blue), center, 2.1rem);
-      @include capture-buttom(144px, 36px, 6.5px 13.5px, var(--bg-color), 1px solid var(--dark-blue));
+      @include text(var(--font-size-buttom), var(--color-search-btn), center, 2.1rem);
+      @include capture-buttom(144px, 36px, 6.5px 13.5px, var(--bg-color), 1px solid var(--color-search-btn));
       box-shadow: inset -1px -1px 0 0 --button-shadow, inset 1px 1px 0 0 #fff;
+      position: relative;
     }
     .preview_start {
-      @include text(var(--font-size-buttom), var(--dark-blue), center, 2.1rem);
-      @include capture-buttom(144px, 36px, 6.5px 31.5px, var(--button-menu), 1px solid var(--dark-blue));
+      @include text(var(--font-size-buttom), var(--color-search-btn), center, 2.1rem);
+      @include capture-buttom(144px, 36px, 6.5px 31.5px, var(--button-menu), 1px solid var(--color-search-btn));
       margin: 0 16px 0 14px;
       box-shadow: inset -1px -1px 0 0 --button-shadow, inset 1px 1px 0 0 #fff;
+      position: relative;
     }
   }
 }
@@ -178,8 +185,25 @@ video,
       display: flex;
       align-items: center;
       padding-left: 2px;
+
+      /* margin: 0 auto; */
+      position: relative;
+
+
       .loading_item {
-        @extend .load_item;
+        width: 12px;
+        height: 20px;
+        z-index: 10;
+        border: 1px solid var(--gray-search);
+      }
+
+      .loaded {
+        z-index: 1;
+        position: absolute;
+        width: 320px;
+        height: 20px;
+        animation: load-bar 5s linear infinite;
+        background-color: var(--button-menu);
       }
     }
     p {
@@ -225,6 +249,7 @@ video,
       @include capture-buttom(256px, 36px, 6.5px 13.5px, var(--bg-color), 1px solid var(--dark-blue));
       margin-bottom: 14px;
       box-shadow: inset -1px -1px 0 0 --button-shadow, inset 1px 1px 0 0 #fff;
+      position: relative;
     }
   }
   &_ready {
@@ -242,4 +267,50 @@ video,
 
 .hidden {
   display: none;
+}
+
+//Hover and Active
+.dotted_btn_start {
+  &:hover, &:active {
+    @include dotted-hover(null, var(--pink-hover-btn-menu), var(--border-buttoms));
+    &::after {
+      @include dotted-buttoms(97%, 89%, 0);    
+      top:0;
+    }
+  }
+}
+
+.dotted_btn_cancel{
+  &:hover, &:active {
+    &::after {
+      @include dotted-buttoms(97%, 89%, 0);
+      border: 1px dotted var(--color-search-btn);
+      top:0;
+    }
+  }
+}
+
+.dotted_capture {
+  &:hover {
+    .dotted_capture_text {
+      @include dotted-hover(null, var(--pink-hover-btn-menu), var(--border-buttoms));
+      &::after {
+        @include dotted-buttoms(76%, 89%, 38px);
+      }
+    }
+    .dotted_capture_img {
+      @include dotted-hover(relative, var(--pink-hover-btn-menu), var(--border-buttoms));
+      &::after {
+        @include dotted-buttoms(90%, 89%, 0);
+      }
+    }
+  }
+}
+@keyframes load-bar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 320px;
+  }
 }

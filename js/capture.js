@@ -15,8 +15,6 @@ if (localStorage.getItem("myGifs")) {
 let myGif;
 let saveGifs;
 
-let timeout = 0;
-
 //Para adicionar Class
 let addClass = (nodeAdd, classAdd) => {
   document.querySelector(nodeAdd).classList.add(classAdd);
@@ -26,13 +24,31 @@ let removeClass = (node, classRemove) => {
   document.querySelector(node).classList.remove(classRemove);
 };
 
+let reLoad = () => {
+  location.reload(true);
+}
 //Cerrar
 document.querySelector("#close").onclick = () => {
-  removeClass(".pre_capture", "hidden");
-  addClass(".capture", "hidden");
-};
+  reLoad();
+}
+document.querySelector("#close_uploaded").onclick = () => {
+  reLoad();
+}
+document.querySelector("#cancel").onclick = () => {
+  reLoad();
+}
 
-//prender la cámara
+//Repetir captura
+document.querySelector("#repeat").onclick = () => {
+  reLoad();
+}
+
+//Listo
+document.querySelector("#ready").onclick = () => {
+  reLoad();
+}
+
+//Prender la cámara
 document.getElementById("start").onclick = () => {
   addClass(".pre_capture", "hidden");
   removeClass(".recording", "hidden");
@@ -59,9 +75,6 @@ document.getElementById("btn-start-recording").onclick = () => {
   document.querySelector(".container_btn").style.display = "flex";
   document.querySelector(".load").style.display = "none";
   title.innerText = "Capturando Tu Guifo";
-  /* 
-  removeClass("#btn-stop-recording", "hidden");
-  removeClass(".time", "hidden"); */
   chronometer();
   navigator.mediaDevices
     .getUserMedia({
@@ -94,8 +107,8 @@ document.getElementById("btn-stop-recording").onclick = () => {
     addClass(".stop_btn", "hidden");
     document.querySelector(".load").style.display = "flex";
     removeClass(".preview_buttoms", "hidden");
+    loadBarGif();
     title.innerText = "Vista previa";
-
     let containerGif = document.createElement("img");
     containerGif.classList.add("new-gif");
     document.querySelector("#container-gif").appendChild(containerGif);
@@ -111,6 +124,7 @@ document.getElementById("btn-stop-recording").onclick = () => {
 document.getElementById("preview_start").onclick = () => {
   addClass(".recording", "hidden");
   removeClass(".upload", "hidden");
+  loadBar();
   removeClass(".mygifs", "hidden");
   fetch(`${URL_UPLOAD}?api_key=${APIKey}&username=carolinagomezsanchez&source_image_url=${URL.createObjectURL(recorder.getBlob())}`, {
     method: "post",
@@ -123,7 +137,6 @@ document.getElementById("preview_start").onclick = () => {
       removeClass(".mygifs", "hidden");
       let dataUpload = await response.json();
       let idGif = dataUpload.data.id;
-
       let gifContainer = document.querySelector(".uploaded_gif");
       myGif = await urlGif(idGif);
       gifContainer.src = myGif;
@@ -131,6 +144,15 @@ document.getElementById("preview_start").onclick = () => {
       console.log(`Debería agregarse el nuevo gif ${myGifsArray}`);
       localStorage.setItem("myGifs", JSON.stringify(myGifsArray));
       console.log(myGifsArray);
+      let btnCopyGif = document.querySelector("#copy");
+      let btnUrlGif = document.querySelector("#download");
+      let urlMyGif = await urlGifLink(idGif);
+      console.log(urlMyGif);
+      btnCopyGif.setAttribute("href", urlMyGif);
+      btnCopyGif.setAttribute("target", "_blank");
+      btnUrlGif.setAttribute("href", urlMyGif);
+      btnUrlGif.setAttribute("target", "_blank");
+      console.log("Boton", urlMyGif, btnUrlGif);
     })
     .catch((err) => console.error(err));
 };
@@ -139,8 +161,17 @@ document.getElementById("preview_start").onclick = () => {
 async function urlGif(id) {
   let response = await fetch(`${URL_IDGIF}/${id}?api_key=${APIKey}`);
   let data = await response.json();
+  console.log("La data", data)
   let urlImg = await data.data.images.downsized_large.url;
   return urlImg;
+}
+
+async function urlGifLink(id) {
+  let response = await fetch(`${URL_IDGIF}/${id}?api_key=${APIKey}`);
+  let data = await response.json();
+  console.log("La data", data)
+  let urlGif = await data.data.url;
+  return urlGif;
 }
 
 window.onload = function (e) {
@@ -150,7 +181,7 @@ window.onload = function (e) {
   for (let i = 0; i < savedGifs.length; i++) {
     let contenedor = document.querySelector(".mygifs");
     let myGifCont = document.createElement("div");
-    myGifCont.className = "my-new-gif";
+    myGifCont.className = "gif gif-hover";
     let image = document.createElement("img");
     image.src = savedGifs[i];
     console.log(`Renderizar ${savedGifs[i]}`);
@@ -159,26 +190,3 @@ window.onload = function (e) {
   }
 };
 
-//Cronómetro
-function chronometer() {
-  if (timeout == 0) {
-    start = vuelta = new Date().getTime();
-    startChronometer();
-  } else {
-    clearTimeout(timeout);
-    timeout = 0;
-  }
-}
-
-function startChronometer() {
-  let now = new Date().getTime();
-  let difference = new Date(now - start);
-  let durationGif =
-    LeadingZero(difference.getUTCHours()) + ":" + LeadingZero(difference.getUTCMinutes()) + ":" + LeadingZero(difference.getUTCSeconds());
-  document.getElementById("time").innerHTML = durationGif;
-  timeout = setTimeout("startChronometer()", 1000);
-}
-
-function LeadingZero(Time) {
-  return Time < 10 ? "0" + Time : +Time;
-}

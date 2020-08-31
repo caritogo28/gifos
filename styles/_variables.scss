@@ -26,8 +26,17 @@ html {
   --border-buttoms: inset -1px -1px 0 0 var(--button-shadow), inset 1px 1px 0 0 #fff;
   --stop-buttoms: #ff6161;
   --stop-shadow-buttoms: #993a3a;
+  --color-search-btn:#110038;
+  --color-word-btn: #dbdbdb;
+  --btn-more-hover: #3A72DB;
   //Font size
   --font-size-buttom: 1.6rem;
+  //Secondary Buttoms
+  .dotted_btn_cancel {
+    &:hover, &:active {
+      background-color: #F0E5EE;
+    }
+  }
 }
 
 html[data-theme="dark"] {
@@ -42,13 +51,41 @@ html[data-theme="dark"] {
   --dark-titles-shadow: #110038;
   --blue-button-gif: #2e32fb;
   --blue-btn-gif-shadow: #2124b3;
-
+  --color-search-btn:#fff;
+  --color-word-btn: #ccc;
+  --btn-more-hover: #2629CC;
   .button_2 {
     color: #fff;
   }
 
-  h2 {
+  .subtitle {
     border: 1px solid var(--blue-button-gif);
+  }
+
+  .button_2 {
+    span {
+      border-bottom: 1px solid #fff;
+    }
+  }
+
+  .dotted_btn_my-gif {
+    &:hover {
+      &::after {
+        border: 1px dotted #fff;
+      }
+    }
+    &:active {
+      color: var(--gray-active);
+    }
+    &:active span {
+      color: var(--gray-active);
+      border-bottom: 1px solid var(--gray-active);
+    }
+  }
+  .dotted_btn_cancel {
+    &:hover, &:active {
+      background-color: #110038;
+    }
   }
 
   .dropdown-content {

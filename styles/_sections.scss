@@ -1,14 +1,14 @@
 .suggestions,
-.trends {
+.trends,
+.mygifs {
   margin: 64px 140px 0 100px;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
   }
 }
 
-.suggestions {
+.suggestions, .mygifs {
   display: grid;
   grid-template: 32px 1fr / repeat(4, 1fr);
   grid-gap: 16px;
@@ -111,6 +111,7 @@
 
 .more-hover {
   &:hover {
+    background-color: var(--btn-more-hover);
     &::after {
       @include dotted-buttoms(95%, 82%, 1px);
       margin: 0px;

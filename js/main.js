@@ -12,6 +12,8 @@ let arrayNodeImg = [];
 let arrayGif = [];
 let arrayWords = [];
 let createDivs;
+let searchBtn = document.querySelector(".search_button");
+let htmlAttrib = document.getElementsByTagName("html")[0].attributes;
 
 const create = function (element, clase) {
   createDivs = document.createElement(element);
@@ -177,20 +179,24 @@ if (localStorage.getItem("searchWords")) {
 //2. capturar los datos
 document.getElementById("search_button").addEventListener("click", function () {
   let keywordSearch = document.querySelector(".search_input").value;
+  searchBtn.disabled = true;
+  searchBtn.className = "search_button";
+  document.querySelector(".search_button img").setAttribute("src", "/assets/lupa_inactive.svg");
+
+  if (keywordSearch.length != 0){
+  searchBtn.setAttribute("href", "#trends");
   newArray.push(keywordSearch);
   console.log("Nuevo array", newArray);
   localStorage.setItem("searchWords", JSON.stringify(newArray));
-  /* arrayWords = localStorage.getItem("searchWords");
-  arrayWords = JSON.parse(arrayWords); */
   searchWords(keywordSearch);
   console.log(keywordSearch, arrayWords);
-
   document.querySelector(".trends h2").innerText = `${keywordSearch}:`;
 
   //2. capturar los datos
   dataApi(keywordSearch)
     .then((response) => renderSearch(response))
     .catch((error) => console.log(error, "hubo un error"));
+  }
 });
 
 console.log("Nuevo array 2", newArray);
@@ -215,7 +221,13 @@ let dropdownSearch = document.querySelector(".search_input").addEventListener("c
   dropdown.forEach((drop) => {
     drop.classList.toggle("dropdown-show");
   });
-  document.querySelector(".search_button").className = "search_button search_button-input";
+  searchBtn.disabled = false;
+  searchBtn.className = "search_button search_button-input dotted_btn_search";
+  if(htmlAttrib[1].value === 'dark') {
+    document.querySelector(".search_button img").setAttribute("src", "/assets/lupa_light.svg");
+  } else {
+    document.querySelector(".search_button img").setAttribute("src", "/assets/lupa.svg");
+  }
 });
 console.log(dropdownSearch);
 
@@ -229,18 +241,17 @@ function expand() {
 window.onclick = function (e) {
   let dropdown = document.getElementById("dropdown");
   let keyword = document.getElementById("search_dropdown");
-  let searchBtn = document.querySelector(".search_button");
+  //let searchBtn = document.querySelector(".search_button");
   // close all
   if (!e.target.matches(".dropbtn") && !e.target.matches(".search_input")) {
     dropdown.classList.remove("dropdown-show");
-    // keyword.classList.remove('showK');
   }
   // close search
   if (e.target.matches(".search_input")) {
     dropdown.classList.remove("dropdown-show");
-    if ((searchBtn.className = "search_button search_button-input")) {
+    /* if ((searchBtn.className = "search_button search_button-input")) {
       searchBtn.classList.remove("search_button-input");
-    }
+    } */
   }
   // close dropdown
   if (e.target.matches(".dropbtn")) {
@@ -255,6 +266,7 @@ window.onload = function (e) {
   for (let i = 0; i < arrayW.length; i++) {
     searchWords(arrayW[i]);
   }
+console.log(document.getElementById("search_button"))
 };
 
 //Crear botones
@@ -271,7 +283,7 @@ const dataApiWord = async (word) => {
 document.getElementById("search").addEventListener("keypress", onKeyDown);
 let word = "";
 let vector = new Array();
-const elementos = document.querySelectorAll(".search_word");
+let elementos = document.querySelectorAll(".search_word");
 let dropcont = document.querySelector(".dropdown-search");
 
 document.getElementById("search").addEventListener("keydown", borrar);
@@ -291,23 +303,24 @@ function onKeyDown(event) {
     .catch((error) => console.log(error));
 }
 function ciclo(array) {
-  for (let i of array.keys()) {
+  for (let i = 0; i <= elementos.length; i++) {
     vector.push(array[i].name);
-    let createRel = document.createElement("a");
-    createRel.className = "search_word";
-    createRel.innerText = vector[i];
-    createRel.setAttribute("href", "#trends");
-    dropcont.appendChild(createRel);
+    elementos[i].innerText = vector[i];
+    elementos[i].setAttribute("href", "#trends");
 
-    createRel.onclick = () => {
-      document.querySelector(".trends h2").innerText = `${createRel.text}:`;
+    elementos[i].onclick = () => {
+      document.querySelector(".trends h2").innerText = `${elementos[i].text}:`;
+      newArray.push(elementos[i].text);
+      console.log("Array search", newArray);
+      localStorage.setItem("searchWords", JSON.stringify(newArray));
+      searchBtn.disabled = true;
+      searchBtn.className = "search_button";
+      document.querySelector(".search_button img").setAttribute("src", "/assets/lupa_inactive.svg");
 
       //2. capturar los datos
-      dataApi(createRel.text)
+      dataApi(elementos[i].text)
         .then((response) => renderSearch(response))
-        .catch((error) => console.log(error, "hubo un error"));
-
-      console.log(createRel, createRel.text);
+        .catch((error) => console.log(error, "hubo un error"));      
     };
     if (i >= 2) {
       break;
@@ -316,3 +329,32 @@ function ciclo(array) {
 
   vector = [];
 }
+
+/* function ciclo(array) {
+  for (let i of array.keys()) {
+    vector.push(array[i].name);
+    let createRel = document.createElement("a");
+    createRel.className = "search_word";
+    createRel.innerText = vector[i];
+    createRel.setAttribute("href", "#trends");
+    dropcont.appendChild(createRel);
+    console.log(vector, createRel, createRel.text);
+    createRel.onclick = () => {
+      document.querySelector(".trends h2").innerText = `${createRel.text}:`;
+
+      //2. capturar los datos
+      dataApi(createRel.text)
+        .then((response) => renderSearch(response))
+        .catch((error) => console.log(error, "hubo un error"));
+
+      
+    };
+    if (i >= 2) {
+      break;
+    }
+  }
+
+  vector = [];
+}
+ */
+

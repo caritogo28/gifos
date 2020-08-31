@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="author" content="Carolina Gómez Sánchez">
     <meta name="description" content="Deja volar tu imaginación, crea tu propio GIF y compártelo donde quieras." />
+    <link rel="icon" href="../assets/favicon.gif" type="image/gif" sizes="16x16">
     <title>Create my Gif</title>
     <link rel="stylesheet" href="../styles/main.css" />
   </head>
@@ -39,24 +40,10 @@
        </p>
       </div>
       <div class="pre_capture_buttoms">
-        <a href="/index.html" class="cancel">Cancelar</a>
-        <a href="#" class="start" id="start">Comenzar</a>
+        <a href="/index.html" class="cancel dotted_btn_cancel">Cancelar</a>
+        <a href="#" class="start dotted_btn_start" id="start">Comenzar</a>
       </div>
     </section>
-   
-    <!--Cámara prendida-->
-    <!-- <section class="container capture hidden">
-      <div class="pre_capture_title"><h1>Un chequeo antes de comenzar</h1>           
-        <img src="../assets/close.svg" id="close"/>
-      </div>
-      <video autoplay playsinline id="video"></video>  
-      <div class="button" id="btn-start-recording">
-        <div class="button_img">
-          <img src="../assets/camera.svg" alt="Elegir tema" />
-        </div>
-        <div class="button_text">Capturar</div>
-      </div>
-    </section> -->
 
     <!--Grabando gif-->
     <section class="container recording hidden">
@@ -65,11 +52,11 @@
       </div>
       <video autoplay playsinline id="video"></video>  
       <div id="container-gif"></div>
-      <div class="button" id="btn-start-recording">
-        <div class="button_img">
-          <img src="../assets/camera.svg" alt="Elegir tema" />
+      <div class="button dotted_capture" id="btn-start-recording">
+        <div class="button_img dotted_capture_img">
+          <img class="camera_img" src="../assets/camera.svg" alt="Elegir tema" />
         </div>
-        <div class="button_text">Capturar</div>
+        <div class="button_text dotted_capture_text">Capturar</div>
       </div>
       <div class="container_btn" id="container_btn">
         <p class="time" id="time"></p>      
@@ -87,61 +74,53 @@
           </div>
         </div>
         <div class="preview_buttoms hidden">
-          <a href="#" class="preview_cancel">Repetir captura</a>
-          <a href="#" class="preview_start" id="preview_start">Subir Guifo</a>
+          <a href="#" class="preview_cancel dotted_btn_cancel" id="repeat">Repetir captura</a>
+          <a href="#" class="preview_start dotted_btn_start" id="preview_start">Subir Guifo</a>
         </div>
       </div>
     </section>
 
     <!--Subiendo gif-->
-    <section class="container upload hidden">
+    <section class="container upload  hidden">
       <div class="pre_capture_title"><h1>Subiendo Guifo</h1>           
         <img src="../assets/close.svg" id="close"/>
       </div>
       <div class="loading-gif">
         <img src="../assets/globe_img.png">
         <h3>Estamos subiendo tu guifo…</h3>
-        <div class="wrap-barra" > 
-          <div class="charger" > </div > 
-            <div class="barra" > </div > 
-              
         <div class="loading_bar">
           <div class="loading_item"></div>
-          <div class="loading_item loaded"></div>
+          <div class="loaded"></div>
         </div>
         <p>Tiempo restante: <span>38 años</span> algunos minutos</p>
       </div> 
       <div class="pre_capture_buttoms">
-        <a href="/GIFOS/index.html" class="cancel">Cancelar</a>
+        <a href="#" class="cancel dotted_btn_cancel" id="cancel">Cancelar</a>
       </div>
     </section>
 
     <!--Guifo subido-->
     <section class="uploaded hidden">
       <div class="pre_capture_title"><h1>Guifo Subido Con Éxito</h1>           
-        <img src="../assets/close.svg" id="close"/>
+        <img src="../assets/close.svg" id="close_uploaded"/>
       </div>
       <div class="uploaded_container">
-        <img src="../assets/globe_img.png" class="uploaded_gif">
+        <img src="https://media.giphy.com/media/l31p1SkNXGz3l1nwwu/giphy.gif" class="uploaded_gif">
         <div class="uploaded_buttoms">
           <p>Guifo creado con éxito</p>
-          <a href="#" class="uploaded_btn" id="copy">Copiar Enlace Guifo</a>
-          <a href="#" class="uploaded_btn" id="download">Descargar Guifo</a>
+          <a href="#" class="uploaded_btn dotted_btn_cancel" id="copy">Copiar Enlace Guifo</a>
+          <a href="#" class="uploaded_btn dotted_btn_cancel" id="download">Descargar Guifo</a>
         </div>
       </div>
-      <a href="#" class="uploaded_ready">Listo</a>
+      <a href="#" class="uploaded_ready dotted_btn_start" id="ready">Listo</a>
     </section>
 
-    <section class="mygifs">
-      <h2 class="subtitle">Mis Gifos</h2>
-      <!-- <div class="my-new-gif"></div>
-      <div class="my-new-gif"></div>
-      <div class="my-new-gif"></div>
-      <div class="my-new-gif"></div> -->
+    <section class="mygifs" id="mygifs">
+      <h2 class="subtitle">Mis gifos</h2>
     </section>
 
-    <!-- <script src="../js/main.js"></script>
-    <script src="../js/theme.js"></script> -->
+    <!-- <script src="../js/main.js"></script>-->
+    <script src="../js/components.js"></script> 
     <script src="../js/theme.js"></script>
     <script src="../js/capture.js"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
